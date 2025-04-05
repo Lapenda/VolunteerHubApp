@@ -1,0 +1,31 @@
+body {
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+#sign-out {
+  background: linear-gradient(to right, black, red);
+  background-size: 200% 100%;
+  background-position: 0 0;
+  color: white;
+  transition: background-position 0.4s ease;
+}
+
+#sign-out:hover {
+  background-position: 100% 0;
+}
+
+button {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
