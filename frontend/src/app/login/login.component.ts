@@ -9,11 +9,11 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -24,7 +24,6 @@ export class LoginComponent {
       Validators.required,
       Validators.minLength(6),
     ]),
-    userRole: new FormControl('', Validators.required),
   });
 
   constructor(

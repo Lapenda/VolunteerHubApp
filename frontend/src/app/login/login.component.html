@@ -47,34 +47,13 @@
         >
       </div>
       <br />
-
-      <label for="admin">Are you a volunteer or an organization? </label> <br />
-      <label>
-        <input
-          type="radio"
-          name="userRole"
-          formControlName="userRole"
-          value="association"
-        />
-        Association
-      </label>
-
-      <br />
-
-      <label>
-        <input
-          type="radio"
-          name="userRole"
-          formControlName="userRole"
-          value="volunteer"
-        />
-        Volunteer
-      </label>
-
-      <br />
       <br />
 
       <button type="submit" [disabled]="signinForm.invalid">Submit</button>
     </form>
+    <br />
+
+    <a routerLink="/sign-up">Don't have an account? Sign up!</a> <br /><br />
+    <a routerLink="/">Go to home</a>
   </div>
 </section>

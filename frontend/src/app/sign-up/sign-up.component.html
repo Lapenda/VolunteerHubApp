@@ -1,1 +1,54 @@
-<p>sign-up works!</p>
+<section>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <label name="email">E-mail: </label>
+    <input
+      type="text"
+      title="email"
+      formControlName="email"
+      placeholder="example@example.com"
+    />
+    <br />
+
+    <label name="password">Password: </label> <br />
+    <input
+      type="password"
+      title="password"
+      formControlName="password"
+      name="password"
+    />
+    <br />
+
+    <label name="question">Are you an organization or a volunteer?</label>
+    <br />
+
+    <label name="userRole">
+      <input
+        type="radio"
+        name="userRole"
+        formControlName="userRole"
+        title="userRole"
+        value="organization"
+      />
+      Organization
+    </label>
+    <br />
+
+    <label name="userRole">
+      <input
+        type="radio"
+        name="userRole"
+        formControlName="userRole"
+        title="userRole"
+        value="volunteer"
+      />
+      Volunteer
+    </label>
+
+    <br /><br />
+
+    <button type="submit" [disabled]="signupForm.invalid">Submit</button>
+  </form>
+
+  <a routerLink="/sign-in">Already have an account?</a> <br />
+  <a routerLink="/">Go to home</a>
+</section>
