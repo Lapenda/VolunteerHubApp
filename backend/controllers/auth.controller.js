@@ -11,6 +11,10 @@ export const signUp = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
+    if (!password || password.length < 6) {
+      throw createError("Password must be at least 6 characters");
+    }
+
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -61,6 +65,10 @@ export const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    if (!password || password.length < 6) {
+      throw createError("Password must be at least 6 characters");
+    }
+
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -78,7 +86,7 @@ export const signIn = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "User signed in successflly",
+      message: "User signed in successfully",
       data: {
         token,
       },
