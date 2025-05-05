@@ -8,8 +8,15 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-
 import { Router, RouterModule } from '@angular/router';
+
+interface AuthRepsonse {
+  success: boolean;
+  message: string;
+  data: {
+    token: string;
+  };
+}
 
 @Component({
   selector: 'app-login',
@@ -37,10 +44,14 @@ export class LoginComponent {
       console.log('Form data: ', formData);
 
       this.http
-        .post('http://localhost:5500/api/v1/auth/sign-in', formData)
+        .post<AuthRepsonse>(
+          'http://localhost:5500/api/v1/auth/sign-in',
+          formData,
+        )
         .subscribe({
           next: (response) => {
             console.log('Success: ', response);
+            localStorage.setItem('token', response?.data?.token);
             this.router.navigate(['/']);
           },
           error: (error) => {

@@ -4,6 +4,7 @@ dist/
 .env.*.local
 .vscode/
 eslint.*
+config.ini
 
 # Compiled output
 /dist

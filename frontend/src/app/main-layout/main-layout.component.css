@@ -1,4 +1,6 @@
 body {
+  width: 70%;
+  margin: 0 auto;
   font-family:
     "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -10,7 +12,8 @@ nav {
   justify-content: space-around;
 }
 
-#sign-out {
+#sign-out,
+#sign-in {
   background: linear-gradient(to right, black, red);
   background-size: 200% 100%;
   background-position: 0 0;
@@ -18,7 +21,8 @@ nav {
   transition: background-position 0.4s ease;
 }
 
-#sign-out:hover {
+#sign-out:hover,
+#sign-in:hover {
   background-position: 100% 0;
 }
 

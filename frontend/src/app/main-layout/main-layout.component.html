@@ -1,11 +1,33 @@
 <body>
   <nav>
     <a routerLink="/">Home</a>
-    <a routerLink="/sign-in">Navigate to sign-in</a><br />
-    <a routerLink="/inbox">Inbox</a><br />
-    <a routerLink="/profile">Profile</a><br />
-    <button id="sign-out" type="button" title="sign-out" (click)="signOut()">
-      Sign-out
+    <a routerLink="/inbox">Inbox</a>
+    <a routerLink="/profile">Profile</a>
+    <button
+      *ngIf="isSignedIn"
+      id="sign-out"
+      type="button"
+      title="sign-out"
+      (click)="signOut()"
+    >
+      Sign out
+    </button>
+    <button
+      *ngIf="!isSignedIn"
+      id="sign-in"
+      type="button"
+      title="sign-in"
+      (click)="signIn()"
+    >
+      Sign in
+    </button>
+
+    <button [disabled]="currentLang === 'hr'" (click)="switchLanguage('hr')">
+      HR
+    </button>
+
+    <button [disabled]="currentLang === 'en'" (click)="switchLanguage('en')">
+      EN
     </button>
   </nav>
 

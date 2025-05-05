@@ -8,6 +8,8 @@ import userRouter from "./routes/user.routes.js";
 import connectToDatabase from "./database/mongodb.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
+import { getConfig } from "./services/config.service.js";
+import { updateConfig } from "./services/config.service.js";
 
 const app = express();
 
@@ -32,8 +34,10 @@ app.get("/", (req, res) => {
 
 async function run() {
   try {
-    app.listen(PORT, async () => {
-      console.log(`Server is running on port ${PORT}`);
+    const config = getConfig();
+    const port = config.server?.port || PORT;
+    app.listen(port, async () => {
+      console.log(`Server is running on port ${port}`);
       await connectToDatabase();
     });
   } catch (err) {
@@ -42,5 +46,10 @@ async function run() {
 }
 
 run().catch(console.dir);
+
+app.get("/api/v1/config/test", (req, res) => {
+  const success = updateConfig("server", "port", 6000);
+  res.json({ success, message: "Port updated" });
+});
 
 export default app;
