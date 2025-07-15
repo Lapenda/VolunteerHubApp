@@ -33,6 +33,18 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+.follow-button {
+  background-color: #28a745;
+  color: white;
+}
+.unfollow-button {
+  background-color: #6c757d;
+  color: white;
+}
+.createBtn {
+  color: white;
+  background-color: black;
+}
 .error {
   color: red;
 }

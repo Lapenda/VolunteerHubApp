@@ -85,6 +85,15 @@
     "DELETE_FAILED": "Failed to delete event",
     "EDIT": "Edit",
     "DELETE": "Delete",
-    "UPDATE": "Update event"
+    "UPDATE": "Update event",
+    "CREATE": "Create event"
+  },
+  "ASSOCIATIONS": {
+    "FOLLOW": "Follow",
+    "UNFOLLOW": "Unfollow",
+    "FOLLOW_SUCCESS": "Successfully followed association",
+    "UNFOLLOW_SUCCESS": "Successfully unfollowed association",
+    "FOLLOW_FAILED": "Failed to follow association",
+    "UNFOLLOW_FAILED": "Failed to unfollow association"
   }
 }

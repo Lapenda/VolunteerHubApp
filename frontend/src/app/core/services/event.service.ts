@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map, of, catchError } from 'rxjs';
 import { Event } from '../models/event.model';
 import { EventDto, EventSearchDto } from '../dtos/event.dto';
+import { Association } from '../models/association.model';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -15,6 +16,7 @@ interface ApiResponse<T> {
 export class EventService {
   private apiUrl = 'http://localhost:5500/api/v1/events';
   private volunteerApiUrl = 'http://localhost:5500/api/v1/volunteers';
+  private associationApiUrl = 'http://localhost:5500/api/v1/associations';
 
   constructor(private http: HttpClient) {}
 
@@ -73,5 +75,30 @@ export class EventService {
           return of(null);
         }),
       );
+  }
+
+  followAssociation(
+    associationId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.associationApiUrl}/${associationId}/follow`,
+      {},
+    );
+  }
+
+  unfollowAssociation(
+    associationId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http.delete<{ success: boolean; message: string }>(
+      `${this.associationApiUrl}/${associationId}/follow`,
+    );
+  }
+
+  getAssociation(associationId: string): Observable<Association> {
+    return this.http
+      .get<
+        ApiResponse<Association>
+      >(`${this.associationApiUrl}/${associationId}`)
+      .pipe(map((response) => response.data));
   }
 }

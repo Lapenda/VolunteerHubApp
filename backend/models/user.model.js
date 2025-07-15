@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema(
       enum: ["volunteer", "organization"],
       required: [true, "User role is required"],
     },
+    followedOrganizations: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Association",
+      },
+    ],
   },
   { timestamps: true }
 );

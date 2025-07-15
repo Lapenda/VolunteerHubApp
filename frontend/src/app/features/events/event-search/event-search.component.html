@@ -21,6 +21,14 @@
     <input type="date" id="date" formControlName="date" />
 
     <button type="submit">{{ "EVENTS.SEARCH" | translate }}</button>
+    <button
+      class="createBtn"
+      *ngIf="loggedInUser?.userRole == 'organization'"
+      type="button"
+      (click)="goToEvents()"
+    >
+      {{ "EVENTS.CREATE" | translate }}
+    </button>
     <p *ngIf="errorMessage" class="error">{{ errorMessage | translate }}</p>
     <p *ngIf="successMessage">{{ successMessage | translate }}</p>
   </form>
@@ -52,14 +60,35 @@
         {{ "EVENTS.REGISTER" | translate }}
       </button>
       <button
-        *ngIf="userRole === 'organization'"
+        *ngIf="userRole === 'volunteer' && event.associationId?._id"
+        (click)="toggleFollow(event.associationId!._id)"
+        [ngClass]="
+          isFollowingAssociation(event.associationId!._id)
+            ? 'unfollow-button'
+            : 'follow-button'
+        "
+      >
+        {{
+          isFollowingAssociation(event.associationId!._id)
+            ? ("ASSOCIATIONS.UNFOLLOW" | translate)
+            : ("ASSOCIATIONS.FOLLOW" | translate)
+        }}
+      </button>
+      <button
+        *ngIf="
+          userRole === 'organization' &&
+          event.associationId?._id === loggedInUsersId
+        "
         (click)="editEvent(event._id)"
         class="edit-button"
       >
         {{ "EVENTS.EDIT" | translate }}
       </button>
       <button
-        *ngIf="userRole === 'organization'"
+        *ngIf="
+          userRole === 'organization' &&
+          event.associationId?._id === loggedInUsersId
+        "
         (click)="deleteEvent(event._id)"
         class="delete-button"
       >

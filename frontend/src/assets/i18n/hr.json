@@ -84,6 +84,15 @@
     "EDIT": "Uredi",
     "DELETE": "Izbriši",
     "LOAD_FAILED": "Učitavanje događaja nije uspjelo",
-    "UPDATE": "Ažuriraj događaj"
+    "UPDATE": "Ažuriraj događaj",
+    "CREATE": "Dodaj događaj"
+  },
+  "ASSOCIATIONS": {
+    "FOLLOW": "Prati",
+    "UNFOLLOW": "Prekini praćenje",
+    "FOLLOW_SUCCESS": "Uspješno zapraćena udruga",
+    "UNFOLLOW_SUCCESS": "Uspješno prekinuto praćenje udruge",
+    "FOLLOW_FAILED": "Neuspjelo praćenje udruge",
+    "UNFOLLOW_FAILED": "Neuspjelo prekidanja praćenja udruge"
   }
 }

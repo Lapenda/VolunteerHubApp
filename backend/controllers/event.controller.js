@@ -3,6 +3,8 @@ import Association from "../models/association.model.js";
 import Volunteer from "../models/volunteer.model.js";
 import { createError } from "../utils/error.js";
 import mongoose from "mongoose";
+import { sendEmail } from "../utils/email.js";
+import User from "../models/user.model.js";
 
 export const createEvent = async (req, res, next) => {
   try {
@@ -18,6 +20,16 @@ export const createEvent = async (req, res, next) => {
       skillsRequired: skillsRequired || [],
       associationId: association._id,
     });
+
+    const followers = await User.find({
+      _id: { $in: association.followers },
+    }).select("email");
+    const subject = `New Event: ${event.title}`;
+    const text = `A new event "${event.title}" has been created by ${association.name}.\n\nDetails:\nDate: ${event.date}\nLocation: ${event.location}\nSkills Required: ${event.skillsRequired.join(", ") || "None"}`;
+    for (const follower of followers) {
+      await sendEmail(follower.email, subject, text);
+    }
+
     res.status(201).json({ success: true, data: event });
   } catch (error) {
     next(error);
@@ -96,6 +108,20 @@ export const updateEvent = async (req, res, next) => {
     event.skillsRequired = skillsRequired || event.skillsRequired;
     await event.save();
     await event.populate("associationId", "name contact");
+
+    const volunteers = await Volunteer.find({
+      _id: { $in: event.participants },
+    }).select("userId");
+    const userIds = volunteers.map((v) => v.userId);
+    const participants = await User.find({ _id: { $in: userIds } }).select(
+      "email"
+    );
+    const subject = `Updated Event: ${event.title}`;
+    const text = `The event "${event.title}" by ${association.name} has been updated.\n\nDetails:\nDate: ${event.date}\nLocation: ${event.location}\nSkills Required: ${event.skillsRequired.join(", ") || "None"}`;
+    for (const participant of participants) {
+      await sendEmail(participant.email, subject, text);
+    }
+
     res.status(200).json({ success: true, data: event });
   } catch (error) {
     next(error);
@@ -120,6 +146,20 @@ export const deleteEvent = async (req, res, next) => {
       throw createError("You can only delete your own events", 403);
     }
     await event.deleteOne();
+
+    const volunteers = await Volunteer.find({
+      _id: { $in: event.participants },
+    }).select("userId");
+    const userIds = volunteers.map((v) => v.userId);
+    const participants = await User.find({ _id: { $in: userIds } }).select(
+      "email"
+    );
+    const subject = `Cancelled Event: ${event.title}`;
+    const text = `The event "${event.title}" by ${association.name} has been cancelled.`;
+    for (const participant of participants) {
+      await sendEmail(participant.email, subject, text);
+    }
+
     res.status(200).json({ success: true, message: "Event deleted" });
   } catch (error) {
     next(error);

@@ -11,8 +11,10 @@ export interface User {
   skills?: string[];
   availability?: Availability[];
   association?: {
+    _id: string;
     name: string;
     description?: string;
     contact: string;
   };
+  followedOrganizations?: string[];
 }

@@ -26,6 +26,12 @@ const associationSchema = new mongoose.Schema(
       trim: true,
       match: [/\S+@\S+\.\S+/, "Please fill a valid email address"],
     },
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true }
 );

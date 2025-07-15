@@ -7,6 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Event } from '../../../core/models/event.model';
 import { EventSearchDto } from '../../../core/dtos/event.dto';
 import { Router } from '@angular/router';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-event-search',
@@ -24,8 +25,10 @@ export class EventSearchComponent implements OnInit {
   events: Event[] = [];
   errorMessage: string | null = null;
   successMessage: string | null = null;
-  volunteerId: string | null = null;
+  loggedInUsersId: string | null | undefined = null;
   userRole: 'volunteer' | 'organization' | null = null;
+  followedAssociations: string[] = [];
+  loggedInUser: User | null = null;
 
   constructor(
     private eventService: EventService,
@@ -66,32 +69,35 @@ export class EventSearchComponent implements OnInit {
     this.authService.getCurrentUser().subscribe({
       next: (user) => {
         this.userRole = user ? user.userRole : null;
+        this.loggedInUser = user;
+
         if (user && user.userRole === 'volunteer') {
           this.eventService.getVolunteerId(user.id).subscribe({
             next: (volunteerId) => {
-              this.volunteerId = volunteerId;
-              console.log('Volunteer ID:', this.volunteerId);
+              this.followedAssociations = user?.followedOrganizations || [];
+              this.loggedInUsersId = volunteerId;
+              console.log('Volunteer ID:', this.loggedInUsersId);
             },
             error: (error) => {
               console.error('Error loading volunteer ID:', error);
-              this.volunteerId = null;
+              this.loggedInUsersId = null;
             },
           });
         } else {
-          this.volunteerId = null;
+          this.loggedInUsersId = user?.association?._id;
         }
       },
       error: (error) => {
         console.error('Error getting current user:', error);
-        this.volunteerId = null;
+        this.loggedInUsersId = null;
         this.userRole = null;
       },
     });
   }
 
   isUserRegistered(event: Event): boolean {
-    return this.volunteerId
-      ? event.participants?.includes(this.volunteerId) || false
+    return this.loggedInUsersId
+      ? event.participants?.includes(this.loggedInUsersId) || false
       : false;
   }
 
@@ -160,5 +166,43 @@ export class EventSearchComponent implements OnInit {
         }
       },
     });
+  }
+
+  isFollowingAssociation(associationId: string): boolean {
+    return this.followedAssociations.includes(associationId);
+  }
+
+  toggleFollow(associationId: string) {
+    if (this.isFollowingAssociation(associationId)) {
+      this.eventService.unfollowAssociation(associationId).subscribe({
+        next: () => {
+          this.followedAssociations = this.followedAssociations.filter(
+            (id) => id !== associationId,
+          );
+          this.successMessage = 'ASSOCIATIONS.UNFOLLOW_SUCCESS';
+        },
+        error: (error) => {
+          console.error('Unfollow error:', error);
+          this.errorMessage =
+            error.error.message || 'ASSOCIATIONS.UNFOLLOW_FAILED';
+        },
+      });
+    } else {
+      this.eventService.followAssociation(associationId).subscribe({
+        next: () => {
+          this.followedAssociations.push(associationId);
+          this.successMessage = 'ASSOCIATIONS.FOLLOW_SUCCESS';
+        },
+        error: (error) => {
+          console.error('Follow error:', error);
+          this.errorMessage =
+            error.error.message || 'ASSOCIATIONS.FOLLOW_FAILED';
+        },
+      });
+    }
+  }
+
+  goToEvents() {
+    this.router.navigate(['/events/create']);
   }
 }

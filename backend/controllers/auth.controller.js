@@ -32,6 +32,7 @@ export const signUp = async (req, res, next) => {
       association,
       skills,
       availability,
+      followedOrganizations,
     } = req.body;
 
     if (!password || password.length < 6) {
@@ -52,7 +53,7 @@ export const signUp = async (req, res, next) => {
     let userDetails;
     if (userRole === "volunteer") {
       userDetails = await Volunteer.create(
-        [{ userId: user[0]._id, skills, availability }],
+        [{ userId: user[0]._id, skills, availability, followedOrganizations }],
         { session }
       );
     } else if (userRole === "organization") {
@@ -75,6 +76,7 @@ export const signUp = async (req, res, next) => {
         ? {
             skills: userDetails[0].skills,
             availability: userDetails[0].availability,
+            followedOrganizations: userDetails[0].followedOrganizations,
           }
         : {}),
       ...(userRole === "organization" ? { association: userDetails[0] } : {}),
@@ -130,6 +132,7 @@ export const signIn = async (req, res, next) => {
         ? {
             skills: userDetails?.skills,
             availability: userDetails?.availability,
+            followedAssociations: userDetails?.followedAssociations,
           }
         : {}),
       ...(user.userRole === "organization" ? { association: userDetails } : {}),

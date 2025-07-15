@@ -32,15 +32,18 @@ export const getCurrentUser = async (req, res, next) => {
     if (!user) {
       throw createError("User not found", 404);
     }
+
     const userDetails =
       user.userRole === "volunteer"
         ? await Volunteer.findOne({ userId: user._id }).select("-password")
         : await Association.findOne({ userId: user._id }).select("-password");
+
     const userResponse = {
       id: user._id,
       name: user.name,
       email: user.email,
       userRole: user.userRole,
+      followedOrganizations: user.followedOrganizations,
       ...(user.userRole === "volunteer"
         ? {
             skills: userDetails?.skills,
@@ -49,6 +52,7 @@ export const getCurrentUser = async (req, res, next) => {
         : {}),
       ...(user.userRole === "organization" ? { association: userDetails } : {}),
     };
+
     res.status(200).json({ success: true, data: userResponse });
   } catch (error) {
     next(error);

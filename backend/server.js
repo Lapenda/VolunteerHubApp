@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import eventRouter from "./routes/event.routes.js";
 import volunteerRouter from "./routes/volunteer.routes.js";
+import associationRouter from "./routes/association.routes.js";
 import connectToDatabase from "./database/mongodb.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
@@ -25,6 +26,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/volunteers", volunteerRouter);
+app.use("/api/v1/associations", associationRouter);
 
 app.get("/", (req, res) => {
   res.send("Welcome to VolunteerHub app!");
