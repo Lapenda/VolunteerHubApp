@@ -1,0 +1,70 @@
+<section>
+  <h1>{{ "EVENTS.SEARCH_TITLE" | translate }}</h1>
+  <form [formGroup]="searchForm" (ngSubmit)="searchEvents()">
+    <label for="location">{{ "EVENTS.LOCATION" | translate }}</label>
+    <input
+      type="text"
+      id="location"
+      formControlName="location"
+      [placeholder]="'EVENTS.LOCATION' | translate"
+    />
+
+    <label for="skills">{{ "EVENTS.SKILLS_REQUIRED" | translate }}</label>
+    <input
+      type="text"
+      id="skills"
+      formControlName="skills"
+      [placeholder]="'EVENTS.SKILLS_PLACEHOLDER' | translate"
+    />
+
+    <label for="date">{{ "EVENTS.DATE" | translate }}</label>
+    <input type="date" id="date" formControlName="date" />
+
+    <button type="submit">{{ "EVENTS.SEARCH" | translate }}</button>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage | translate }}</p>
+    <p *ngIf="successMessage">{{ successMessage | translate }}</p>
+  </form>
+
+  <div *ngIf="events.length === 0">{{ "EVENTS.NO_EVENTS" | translate }}</div>
+  <div *ngFor="let event of events" class="event-card">
+    <h3>{{ event.title }}</h3>
+    <p>{{ "EVENTS.DATE" | translate }}: {{ event.date | date }}</p>
+    <p>{{ "EVENTS.LOCATION" | translate }}: {{ event.location }}</p>
+    <p>
+      {{ "EVENTS.SKILLS_REQUIRED" | translate }}:
+      {{ event.skillsRequired.join(", ") || "None" }}
+    </p>
+    <p>
+      {{ "EVENTS.ASSOCIATION" | translate }}:
+      {{ event.associationId?.name }} ({{ event.associationId?.contact }})
+    </p>
+    <div class="actions">
+      <button
+        *ngIf="userRole === 'volunteer'"
+        (click)="register(event._id)"
+        [disabled]="isUserRegistered(event)"
+        [title]="
+          isUserRegistered(event)
+            ? ('EVENTS.ALREADY_REGISTERED' | translate)
+            : ('EVENTS.REGISTER' | translate)
+        "
+      >
+        {{ "EVENTS.REGISTER" | translate }}
+      </button>
+      <button
+        *ngIf="userRole === 'organization'"
+        (click)="editEvent(event._id)"
+        class="edit-button"
+      >
+        {{ "EVENTS.EDIT" | translate }}
+      </button>
+      <button
+        *ngIf="userRole === 'organization'"
+        (click)="deleteEvent(event._id)"
+        class="delete-button"
+      >
+        {{ "EVENTS.DELETE" | translate }}
+      </button>
+    </div>
+  </div>
+</section>

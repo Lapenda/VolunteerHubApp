@@ -1,0 +1,47 @@
+<section>
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <label for="email">{{ "LOGIN.EMAIL" | translate }}</label>
+    <input
+      type="text"
+      id="email"
+      formControlName="email"
+      [placeholder]="'LOGIN.EMAIL' | translate"
+    />
+    <div
+      *ngIf="
+        signinForm.get('email')?.touched && signinForm.get('email')?.invalid
+      "
+      class="error"
+    >
+      <span *ngIf="signinForm.get('email')?.errors?.['required']">
+        {{ "LOGIN.EMAIL_REQUIRED" | translate }}
+      </span>
+      <span *ngIf="signinForm.get('email')?.errors?.['email']">
+        {{ "LOGIN.EMAIL_INVALID" | translate }}
+      </span>
+    </div>
+
+    <label for="password">{{ "LOGIN.PASSWORD" | translate }}</label>
+    <input type="password" id="password" formControlName="password" />
+    <div
+      *ngIf="
+        signinForm.get('password')?.touched &&
+        signinForm.get('password')?.invalid
+      "
+      class="error"
+    >
+      <span *ngIf="signinForm.get('password')?.errors?.['required']">
+        {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
+      </span>
+      <span *ngIf="signinForm.get('password')?.errors?.['minlength']">
+        {{ "LOGIN.PASSWORD_MINLENGTH" | translate }}
+      </span>
+    </div>
+
+    <button type="submit" [disabled]="signinForm.invalid">
+      {{ "LOGIN.SUBMIT" | translate }}
+    </button>
+  </form>
+  <a routerLink="/sign-up">{{ "LOGIN.SIGNUP_LINK" | translate }}</a>
+  <a routerLink="/">{{ "LOGIN.HOME_LINK" | translate }}</a>
+</section>

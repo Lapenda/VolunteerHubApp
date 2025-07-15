@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MainLayoutComponent } from './features/layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  standalone: true,
+  imports: [MainLayoutComponent],
+  template: ` <app-main-layout></app-main-layout> `,
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'VolunteerHub';

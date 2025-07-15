@@ -1,0 +1,129 @@
+<section>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <label for="name">{{ "SIGNUP.NAME" | translate }}</label>
+    <input
+      type="text"
+      id="name"
+      formControlName="name"
+      [placeholder]="'SIGNUP.NAME' | translate"
+    />
+    <div
+      *ngIf="signupForm.get('name')?.touched && signupForm.get('name')?.invalid"
+      class="error"
+    >
+      <span *ngIf="signupForm.get('name')?.errors?.['required']">
+        {{ "SIGNUP.NAME_REQUIRED" | translate }}
+      </span>
+      <span *ngIf="signupForm.get('name')?.errors?.['minlength']">
+        {{ "SIGNUP.NAME_MINLENGTH" | translate }}
+      </span>
+      <span *ngIf="signupForm.get('name')?.errors?.['maxlength']">
+        {{ "SIGNUP.NAME_MAXLENGTH" | translate }}
+      </span>
+    </div>
+
+    <label for="email">{{ "SIGNUP.EMAIL" | translate }}</label>
+    <input
+      type="text"
+      id="email"
+      formControlName="email"
+      [placeholder]="'SIGNUP.EMAIL' | translate"
+    />
+    <div
+      *ngIf="
+        signupForm.get('email')?.touched && signupForm.get('email')?.invalid
+      "
+      class="error"
+    >
+      <span *ngIf="signupForm.get('email')?.errors?.['required']">
+        {{ "SIGNUP.EMAIL_REQUIRED" | translate }}
+      </span>
+      <span *ngIf="signupForm.get('email')?.errors?.['email']">
+        {{ "SIGNUP.EMAIL_INVALID" | translate }}
+      </span>
+    </div>
+
+    <label for="password">{{ "SIGNUP.PASSWORD" | translate }}</label>
+    <input type="password" id="password" formControlName="password" />
+    <div
+      *ngIf="
+        signupForm.get('password')?.touched &&
+        signupForm.get('password')?.invalid
+      "
+      class="error"
+    >
+      <span *ngIf="signupForm.get('password')?.errors?.['required']">
+        {{ "SIGNUP.PASSWORD_REQUIRED" | translate }}
+      </span>
+      <span *ngIf="signupForm.get('password')?.errors?.['minlength']">
+        {{ "SIGNUP.PASSWORD_MINLENGTH" | translate }}
+      </span>
+    </div>
+
+    <label>{{ "SIGNUP.ROLE_LABEL" | translate }}</label>
+    <label>
+      <input
+        type="radio"
+        name="userRole"
+        formControlName="userRole"
+        value="organization"
+      />
+      {{ "SIGNUP.ORGANIZATION" | translate }}
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="userRole"
+        formControlName="userRole"
+        value="volunteer"
+      />
+      {{ "SIGNUP.VOLUNTEER" | translate }}
+    </label>
+    <div
+      *ngIf="
+        signupForm.get('userRole')?.touched &&
+        signupForm.get('userRole')?.invalid
+      "
+      class="error"
+    >
+      <span *ngIf="signupForm.get('userRole')?.errors?.['required']">
+        {{ "SIGNUP.ROLE_REQUIRED" | translate }}
+      </span>
+    </div>
+
+    <div *ngIf="signupForm.get('userRole')?.value === 'organization'">
+      <label for="associationName">{{
+        "SIGNUP.ASSOCIATION_NAME" | translate
+      }}</label>
+      <input
+        type="text"
+        id="associationName"
+        formControlName="associationName"
+      />
+      <label for="associationContact">{{
+        "SIGNUP.ASSOCIATION_CONTACT" | translate
+      }}</label>
+      <input
+        type="text"
+        id="associationContact"
+        formControlName="associationContact"
+      />
+    </div>
+
+    <div *ngIf="signupForm.get('userRole')?.value === 'volunteer'">
+      <label for="skills">{{ "SIGNUP.SKILLS" | translate }}</label>
+      <input
+        type="text"
+        id="skills"
+        formControlName="skills"
+        placeholder="e.g., teaching,first-aid"
+      />
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid">
+      {{ "SIGNUP.SUBMIT" | translate }}
+    </button>
+  </form>
+  <a routerLink="/sign-in">{{ "SIGNUP.LOGIN_LINK" | translate }}</a>
+  <a routerLink="/">{{ "SIGNUP.HOME_LINK" | translate }}</a>
+</section>

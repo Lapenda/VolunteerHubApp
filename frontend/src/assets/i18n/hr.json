@@ -1,0 +1,89 @@
+{
+  "LOGIN": {
+    "EMAIL": "E-pošta",
+    "PASSWORD": "Lozinka",
+    "SUBMIT": "Prijavi se",
+    "EMAIL_REQUIRED": "E-pošta je obavezna!",
+    "EMAIL_INVALID": "Neispravan format e-pošte!",
+    "PASSWORD_REQUIRED": "Lozinka je obavezna!",
+    "PASSWORD_MINLENGTH": "Lozinka mora imati najmanje 6 znakova!",
+    "SIGNUP_LINK": "Nemate račun? Registrirajte se!",
+    "HOME_LINK": "Idi na početnu"
+  },
+  "SIGNUP": {
+    "NAME": "Ime",
+    "EMAIL": "E-pošta",
+    "PASSWORD": "Lozinka",
+    "ROLE_LABEL": "Jeste li organizacija ili volonter?",
+    "ORGANIZATION": "Organizacija",
+    "VOLUNTEER": "Volonter",
+    "ASSOCIATION_NAME": "Ime udruge",
+    "ASSOCIATION_CONTACT": "Kontakt e-pošta",
+    "SKILLS": "Vještine",
+    "SUBMIT": "Registriraj se",
+    "NAME_REQUIRED": "Ime je obavezno!",
+    "NAME_MINLENGTH": "Ime mora imati najmanje 2 znaka!",
+    "NAME_MAXLENGTH": "Ime može imati najviše 50 znakova!",
+    "EMAIL_REQUIRED": "E-pošta je obavezna!",
+    "EMAIL_INVALID": "Neispravan format e-pošte!",
+    "PASSWORD_REQUIRED": "Lozinka je obavezna!",
+    "PASSWORD_MINLENGTH": "Lozinka mora imati najmanje 6 znakova!",
+    "ROLE_REQUIRED": "Uloga je obavezna!",
+    "LOGIN_LINK": "Već imate račun?",
+    "HOME_LINK": "Idi na početnu"
+  },
+  "NAV": {
+    "HOME": "Početna",
+    "INBOX": "Poruke",
+    "PROFILE": "Profil",
+    "EVENTS": "Događaji",
+    "SIGN_OUT": "Odjavi se",
+    "SIGN_IN": "Prijavi se"
+  },
+  "HOME": {
+    "TITLE": "Dobrodošli u VolunteerHub",
+    "DESCRIPTION": "Pronađite i kreirajte volonterske događaje."
+  },
+  "PROFILE": {
+    "TITLE": "Vaš profil",
+    "DESCRIPTION": "Upravljajte svojim podacima profila."
+  },
+  "INBOX": {
+    "TITLE": "Poruke",
+    "DESCRIPTION": "Pregledajte svoje poruke."
+  },
+  "EVENTS": {
+    "CREATE_TITLE": "Kreiraj događaj",
+    "SEARCH_TITLE": "Pretraži događaje",
+    "TITLE": "Naziv događaja",
+    "DATE": "Datum",
+    "LOCATION": "Lokacija",
+    "SKILLS_REQUIRED": "Potrebne vještine",
+    "SKILLS_PLACEHOLDER": "npr. podučavanje, prva pomoć",
+    "ASSOCIATION": "Udruga",
+    "SUBMIT": "Kreiraj događaj",
+    "SEARCH": "Pretraži",
+    "REGISTER": "Registriraj se",
+    "BACK": "Natrag na događaje",
+    "NO_EVENTS": "Nema pronađenih događaja",
+    "TITLE_REQUIRED": "Naziv događaja je obavezan!",
+    "TITLE_MINLENGTH": "Naziv događaja mora imati najmanje 2 znaka!",
+    "DATE_REQUIRED": "Datum je obavezan!",
+    "LOCATION_REQUIRED": "Lokacija je obavezna!",
+    "NOT_AUTHENTICATED": "Morate biti prijavljeni da biste kreirali ili se registrirali za događaj.",
+    "ORGANIZATION_REQUIRED": "Samo organizacije mogu kreirati događaje.",
+    "VOLUNTEER_REQUIRED": "Samo volonteri mogu se registrirati za događaje.",
+    "CREATION_FAILED": "Neuspjelo kreiranje događaja.",
+    "SEARCH_FAILED": "Neuspjela pretraga događaja.",
+    "REGISTRATION_FAILED": "Neuspjela registracija za događaj.",
+    "REGISTRATION_SUCCESS": "Uspješno ste se registrirali za događaj.",
+    "ALREADY_REGISTERED": "Već ste prijavljeni na ovaj događaj",
+    "UPDATE_FAILED": "Ažuriranje događaja nije uspjelo",
+    "DELETE_SUCCESS": "Događaj uspješno izbrisan",
+    "DELETE_FAILED": "Brisanje događaja nije uspjelo",
+    "EDIT": "Uredi",
+    "DELETE": "Izbriši",
+    "LOAD_FAILED": "Učitavanje događaja nije uspjelo",
+    "UPDATE": "Ažuriraj događaj"
+  }
+}

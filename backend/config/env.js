@@ -10,4 +10,7 @@ export const {
   JWT_EXPIRES_IN,
   ARCJET_KEY,
   ARCJET_ENV,
+  EMAIL_USER,
+  EMAIL_PASS,
+  OPENWEATHER_API_KEY,
 } = process.env;

@@ -1,0 +1,68 @@
+<section>
+  <h1>{{ "EVENTS.CREATE_TITLE" | translate }}</h1>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage | translate }}</p>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <label for="title">{{ "EVENTS.TITLE" | translate }}</label>
+    <input
+      type="text"
+      id="title"
+      formControlName="title"
+      [placeholder]="'EVENTS.TITLE' | translate"
+    />
+    <div
+      *ngIf="eventForm.get('title')?.touched && eventForm.get('title')?.invalid"
+      class="error"
+    >
+      <span *ngIf="eventForm.get('title')?.errors?.['required']">
+        {{ "EVENTS.TITLE_REQUIRED" | translate }}
+      </span>
+      <span *ngIf="eventForm.get('title')?.errors?.['minlength']">
+        {{ "EVENTS.TITLE_MINLENGTH" | translate }}
+      </span>
+    </div>
+
+    <label for="date">{{ "EVENTS.DATE" | translate }}</label>
+    <input type="date" id="date" formControlName="date" />
+    <div
+      *ngIf="eventForm.get('date')?.touched && eventForm.get('date')?.invalid"
+      class="error"
+    >
+      <span *ngIf="eventForm.get('date')?.errors?.['required']">
+        {{ "EVENTS.DATE_REQUIRED" | translate }}
+      </span>
+    </div>
+
+    <label for="location">{{ "EVENTS.LOCATION" | translate }}</label>
+    <input
+      type="text"
+      id="location"
+      formControlName="location"
+      [placeholder]="'EVENTS.LOCATION' | translate"
+    />
+    <div
+      *ngIf="
+        eventForm.get('location')?.touched && eventForm.get('location')?.invalid
+      "
+      class="error"
+    >
+      <span *ngIf="eventForm.get('location')?.errors?.['required']">
+        {{ "EVENTS.LOCATION_REQUIRED" | translate }}
+      </span>
+    </div>
+
+    <label for="skillsRequired">{{
+      "EVENTS.SKILLS_REQUIRED" | translate
+    }}</label>
+    <input
+      type="text"
+      id="skillsRequired"
+      formControlName="skillsRequired"
+      [placeholder]="'EVENTS.SKILLS_PLACEHOLDER' | translate"
+    />
+
+    <button type="submit" [disabled]="eventForm.invalid">
+      {{ "EVENTS.SUBMIT" | translate }}
+    </button>
+  </form>
+  <a routerLink="/events">{{ "EVENTS.BACK" | translate }}</a>
+</section>

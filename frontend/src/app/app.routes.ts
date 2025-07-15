@@ -1,20 +1,21 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { HomeComponent } from './home/home.component';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
-import { ProfileComponent } from './profile/profile.component';
-import { InboxComponent } from './inbox/inbox.component';
+import { MainLayoutComponent } from './features/layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
     path: 'sign-in',
-    component: LoginComponent,
+    loadComponent: () =>
+      import('./features/auth/login/login.component').then(
+        (m) => m.LoginComponent,
+      ),
     data: { title: 'VolunteerHub | Sign In' },
   },
   {
     path: 'sign-up',
-    component: SignUpComponent,
+    loadComponent: () =>
+      import('./features/auth/sign-up/sign-up.component').then(
+        (m) => m.SignUpComponent,
+      ),
     data: { title: 'VolunteerHub | Sign Up' },
   },
   {
@@ -23,18 +24,49 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
+        loadComponent: () =>
+          import('./features/home/home.component').then((m) => m.HomeComponent),
         data: { title: 'VolunteerHub | Home' },
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        loadComponent: () =>
+          import('./features/profile/profile.component').then(
+            (m) => m.ProfileComponent,
+          ),
         data: { title: 'VolunteerHub | Profile' },
       },
       {
         path: 'inbox',
-        component: InboxComponent,
+        loadComponent: () =>
+          import('./features/inbox/inbox.component').then(
+            (m) => m.InboxComponent,
+          ),
         data: { title: 'VolunteerHub | Inbox' },
+      },
+      {
+        path: 'events',
+        loadComponent: () =>
+          import('./features/events/event-search/event-search.component').then(
+            (m) => m.EventSearchComponent,
+          ),
+        data: { title: 'VolunteerHub | Events' },
+      },
+      {
+        path: 'events/create',
+        loadComponent: () =>
+          import('./features/events/event-create/event-create.component').then(
+            (m) => m.EventCreateComponent,
+          ),
+        data: { title: 'VolunteerHub | Create Event' },
+      },
+      {
+        path: 'events/edit/:eventId',
+        loadComponent: () =>
+          import('./features/events/event-edit/event-edit.component').then(
+            (m) => m.EventEditComponent,
+          ),
+        data: { title: 'VolunteerHub | Edit Event' },
       },
     ],
   },

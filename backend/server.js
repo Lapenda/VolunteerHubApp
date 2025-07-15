@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import { PORT } from "./config/env.js";
 import cookieParser from "cookie-parser";
-
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
+import eventRouter from "./routes/event.routes.js";
+import volunteerRouter from "./routes/volunteer.routes.js";
 import connectToDatabase from "./database/mongodb.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
@@ -16,20 +17,22 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(errorMiddleware);
+app.use(cors({ origin: "http://localhost:4200" }));
 app.use(arcjetMiddleware);
-
-app.use(
-  cors({
-    origin: "http://localhost:4200",
-  })
-);
+app.use(errorMiddleware);
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/events", eventRouter);
+app.use("/api/v1/volunteers", volunteerRouter);
 
 app.get("/", (req, res) => {
-  res.send("Wellcome to VolunteerHub app!");
+  res.send("Welcome to VolunteerHub app!");
+});
+
+app.get("/api/v1/config/test", (req, res) => {
+  const success = updateConfig("server", "port", 6000);
+  res.json({ success, message: "Port updated" });
 });
 
 async function run() {
@@ -46,10 +49,5 @@ async function run() {
 }
 
 run().catch(console.dir);
-
-app.get("/api/v1/config/test", (req, res) => {
-  const success = updateConfig("server", "port", 6000);
-  res.json({ success, message: "Port updated" });
-});
 
 export default app;

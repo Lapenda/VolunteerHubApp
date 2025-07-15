@@ -1,0 +1,90 @@
+{
+  "LOGIN": {
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SUBMIT": "Submit",
+    "EMAIL_REQUIRED": "Email is required!",
+    "EMAIL_INVALID": "Invalid email format!",
+    "PASSWORD_REQUIRED": "Password is required!",
+    "PASSWORD_MINLENGTH": "Password must be at least 6 characters!",
+    "SIGNUP_LINK": "Don't have an account? Sign up!",
+    "HOME_LINK": "Go to home"
+  },
+  "SIGNUP": {
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "ROLE_LABEL": "Are you an organization or a volunteer?",
+    "ORGANIZATION": "Organization",
+    "VOLUNTEER": "Volunteer",
+    "ASSOCIATION_NAME": "Association Name",
+    "ASSOCIATION_CONTACT": "Contact Email",
+    "SKILLS": "Skills",
+    "SUBMIT": "Submit",
+    "NAME_REQUIRED": "Name is required!",
+    "NAME_MINLENGTH": "Name must be at least 2 characters!",
+    "NAME_MAXLENGTH": "Name must be at most 50 characters!",
+    "EMAIL_REQUIRED": "Email is required!",
+    "EMAIL_INVALID": "Invalid email format!",
+    "PASSWORD_REQUIRED": "Password is required!",
+    "PASSWORD_MINLENGTH": "Password must be at least 6 characters!",
+    "ROLE_REQUIRED": "Role is required!",
+    "LOGIN_LINK": "Already have an account?",
+    "HOME_LINK": "Go to home"
+  },
+  "NAV": {
+    "HOME": "Home",
+    "INBOX": "Inbox",
+    "PROFILE": "Profile",
+    "EVENTS": "Events",
+    "SIGN_OUT": "Sign out",
+    "SIGN_IN": "Sign in"
+  },
+  "HOME": {
+    "TITLE": "Welcome to VolunteerHub",
+    "DESCRIPTION": "Find and create volunteer events."
+  },
+  "PROFILE": {
+    "TITLE": "Your Profile",
+    "DESCRIPTION": "Manage your profile details."
+  },
+  "INBOX": {
+    "TITLE": "Inbox",
+    "DESCRIPTION": "View your messages."
+  },
+  "EVENTS": {
+    "CREATE_TITLE": "Create Event",
+    "SEARCH_TITLE": "Search Events",
+    "TITLE": "Event Title",
+    "DATE": "Date",
+    "LOCATION": "Location",
+    "SKILLS_REQUIRED": "Skills Required",
+    "SKILLS_PLACEHOLDER": "e.g., teaching,first-aid",
+    "ASSOCIATION": "Association",
+    "SUBMIT": "Create Event",
+    "SEARCH": "Search",
+    "REGISTER": "Register",
+    "BACK": "Back to Events",
+    "NO_EVENTS": "No events found",
+    "TITLE_REQUIRED": "Event title is required!",
+    "TITLE_MINLENGTH": "Event title must be at least 2 characters!",
+    "DATE_REQUIRED": "Date is required!",
+    "LOCATION_REQUIRED": "Location is required!",
+    "NOT_AUTHENTICATED": "You must be signed in to create or register for an event.",
+    "ORGANIZATION_REQUIRED": "Only organizations can create events.",
+    "VOLUNTEER_REQUIRED": "Only volunteers can register for events.",
+    "CREATION_FAILED": "Failed to create event.",
+    "SEARCH_FAILED": "Failed to search events.",
+    "REGISTRATION_FAILED": "Failed to register for event.",
+    "REGISTRATION_SUCCESS": "Successfully registered for the event",
+    "ALREADY_REGISTERED": "You are already registered for this event",
+    "EDIT_TITLE": "Edit Event",
+    "LOAD_FAILED": "Failed to load event",
+    "UPDATE_FAILED": "Failed to update event",
+    "DELETE_SUCCESS": "Event deleted successfully",
+    "DELETE_FAILED": "Failed to delete event",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "UPDATE": "Update event"
+  }
+}

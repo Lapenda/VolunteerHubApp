@@ -1,0 +1,19 @@
+<nav>
+  <a routerLink="/">{{ "NAV.HOME" | translate }}</a>
+  <a routerLink="/events">{{ "NAV.EVENTS" | translate }}</a>
+  <a routerLink="/inbox">{{ "NAV.INBOX" | translate }}</a>
+  <a routerLink="/profile">{{ "NAV.PROFILE" | translate }}</a>
+  <button *ngIf="isSignedIn" id="sign-out" (click)="signOut()">
+    {{ "NAV.SIGN_OUT" | translate }}
+  </button>
+  <button *ngIf="!isSignedIn" id="sign-in" (click)="signIn()">
+    {{ "NAV.SIGN_IN" | translate }}
+  </button>
+  <button [disabled]="currentLang === 'hr'" (click)="switchLanguage('hr')">
+    HR
+  </button>
+  <button [disabled]="currentLang === 'en'" (click)="switchLanguage('en')">
+    EN
+  </button>
+</nav>
+<router-outlet></router-outlet>

@@ -1,0 +1,16 @@
+.error {
+  color: red;
+}
+section {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button {
+  padding: 10px;
+}
