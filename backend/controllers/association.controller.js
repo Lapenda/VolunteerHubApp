@@ -1,5 +1,6 @@
 import Association from "../models/association.model.js";
 import User from "../models/user.model.js";
+import Event from "../models/event.model.js";
 import { createError } from "../utils/error.js";
 import mongoose from "mongoose";
 
@@ -74,7 +75,37 @@ export const getAssociation = async (req, res, next) => {
     if (!association) {
       throw createError("Association not found", 404);
     }
-    res.status(200).json({ success: true, data: association });
+
+    const events = await Event.find({ associationId, type: "event" }).populate(
+      "associationId",
+      "name contact"
+    );
+    const jobs = await Event.find({ associationId, type: "job" })
+      .populate({
+        path: "participants",
+        populate: {
+          path: "userId",
+          select: "name email",
+        },
+      })
+      .populate({
+        path: "pendingApplicants",
+        populate: {
+          path: "userId",
+          select: "name email",
+        },
+      })
+      .populate("associationId", "name contact");
+
+    console.log(jobs);
+    res.status(200).json({
+      success: true,
+      data: {
+        ...association.toObject(),
+        events,
+        jobs,
+      },
+    });
   } catch (error) {
     next(error);
   }

@@ -86,7 +86,11 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "UPDATE": "Update event",
-    "CREATE": "Create event"
+    "CREATE": "Create event",
+    "TYPE": "Type",
+    "TYPE_EVENT": "Event",
+    "TYPE_JOB": "Job",
+    "CREATE_FAILED": "Failed to create event"
   },
   "ASSOCIATIONS": {
     "FOLLOW": "Follow",
@@ -94,6 +98,32 @@
     "FOLLOW_SUCCESS": "Successfully followed association",
     "UNFOLLOW_SUCCESS": "Successfully unfollowed association",
     "FOLLOW_FAILED": "Failed to follow association",
-    "UNFOLLOW_FAILED": "Failed to unfollow association"
+    "UNFOLLOW_FAILED": "Failed to unfollow association",
+    "LOAD_FAILED": "Failed to load association",
+    "VIEW_PROFILE": "View Profile",
+    "CONTACT": "Contact"
+  },
+  "JOBS": {
+    "TITLE": "Jobs",
+    "NO_JOBS": "No jobs found",
+    "ASSOCIATION": "Association",
+    "DATE": "Date",
+    "LOCATION": "Location",
+    "SKILLS_REQUIRED": "Skills Required",
+    "PARTICIPANTS": "Employees",
+    "PENDING_APPLICATIONS": "Pending Applications",
+    "APPLY": "Apply",
+    "ALREADY_APPLIED": "You have already applied for this job",
+    "APPLICATION_SUCCESS": "Successfully applied for the job",
+    "APPLICATION_FAILED": "Failed to apply for the job",
+    "NOT_AUTHENTICATED": "You must be logged in to apply",
+    "VOLUNTEER_REQUIRED": "Only volunteers can apply for jobs",
+    "APPROVE": "Approve",
+    "REJECT": "Reject",
+    "APPROVE_SUCCESS": "Application approved",
+    "APPROVE_FAILED": "Failed to approve application",
+    "REJECT_SUCCESS": "Application rejected",
+    "REJECT_FAILED": "Failed to reject application",
+    "VIEW": "View Job"
   }
 }

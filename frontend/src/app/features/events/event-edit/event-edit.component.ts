@@ -11,7 +11,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventService } from '../../../core/services/event.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { EventDto } from '../../../core/dtos/event.dto';
-//import { Event } from '../../../core/models/event.model';
 
 @Component({
   selector: 'app-event-edit',
@@ -29,6 +28,7 @@ export class EventEditComponent implements OnInit {
     date: new FormControl<string>('', [Validators.required]),
     location: new FormControl<string>('', [Validators.required]),
     skillsRequired: new FormControl<string>(''),
+    type: new FormControl<'event' | 'job'>('event', Validators.required),
   });
   errorMessage: string | null = null;
   eventId: string | null = null;
@@ -53,6 +53,7 @@ export class EventEditComponent implements OnInit {
             date: formattedDate,
             location: event.location,
             skillsRequired: event.skillsRequired.join(', '),
+            type: event.type,
           });
         },
         error: (error) => {
@@ -87,6 +88,7 @@ export class EventEditComponent implements OnInit {
                 .map((s) => s.trim())
                 .filter((s) => s) || [],
             associationId: user.id,
+            type: this.eventForm.value.type!,
           };
           this.eventService.updateEvent(eventData).subscribe({
             next: () => {

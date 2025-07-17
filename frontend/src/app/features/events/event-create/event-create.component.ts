@@ -28,6 +28,7 @@ export class EventCreateComponent {
     date: new FormControl<string>('', [Validators.required]),
     location: new FormControl<string>('', [Validators.required]),
     skillsRequired: new FormControl<string>(''),
+    type: new FormControl<'event' | 'job'>('event', [Validators.required]),
   });
 
   errorMessage: string | null = null;
@@ -79,6 +80,7 @@ export class EventCreateComponent {
                 .map((s) => s.trim())
                 .filter((s) => s) || [],
             associationId: user.id,
+            type: this.eventForm.value.type!,
           };
           this.eventService.createEvent(eventData).subscribe({
             next: () => this.router.navigate(['/events']),

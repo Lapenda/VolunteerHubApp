@@ -60,6 +60,12 @@
       [placeholder]="'EVENTS.SKILLS_PLACEHOLDER' | translate"
     />
 
+    <label for="type">{{ "EVENTS.TYPE" | translate }}</label>
+    <select id="type" formControlName="type">
+      <option value="event">{{ "EVENTS.TYPE_EVENT" | translate }}</option>
+      <option value="job">{{ "EVENTS.TYPE_JOB" | translate }}</option>
+    </select>
+
     <button type="submit" [disabled]="eventForm.invalid">
       {{ "EVENTS.SUBMIT" | translate }}
     </button>

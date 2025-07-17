@@ -68,6 +68,14 @@ export const routes: Routes = [
           ),
         data: { title: 'VolunteerHub | Edit Event' },
       },
+      {
+        path: 'associations/:associationId',
+        loadComponent: () =>
+          import(
+            './features/associations/association-profile/association-profile.component'
+          ).then((m) => m.AssociationProfileComponent),
+        data: { title: 'VolunteerHub | Association Profile' },
+      },
     ],
   },
   { path: '**', redirectTo: '' },

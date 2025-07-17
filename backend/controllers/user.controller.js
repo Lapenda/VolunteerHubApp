@@ -53,6 +53,8 @@ export const getCurrentUser = async (req, res, next) => {
       ...(user.userRole === "organization" ? { association: userDetails } : {}),
     };
 
+    //console.log(userResponse);
+
     res.status(200).json({ success: true, data: userResponse });
   } catch (error) {
     next(error);

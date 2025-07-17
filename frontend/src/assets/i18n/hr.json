@@ -85,7 +85,12 @@
     "DELETE": "Izbriši",
     "LOAD_FAILED": "Učitavanje događaja nije uspjelo",
     "UPDATE": "Ažuriraj događaj",
-    "CREATE": "Dodaj događaj"
+    "CREATE": "Kreiraj događaj ili posao",
+    "TYPE": "Vrsta",
+    "TYPE_EVENT": "Događaj",
+    "TYPE_JOB": "Posao",
+    "EDIT_TITLE": "Uredi događaj ili posao",
+    "CREATE_FAILED": "Kreiranje događaja nije uspjelo"
   },
   "ASSOCIATIONS": {
     "FOLLOW": "Prati",
@@ -93,6 +98,32 @@
     "FOLLOW_SUCCESS": "Uspješno zapraćena udruga",
     "UNFOLLOW_SUCCESS": "Uspješno prekinuto praćenje udruge",
     "FOLLOW_FAILED": "Neuspjelo praćenje udruge",
-    "UNFOLLOW_FAILED": "Neuspjelo prekidanja praćenja udruge"
+    "UNFOLLOW_FAILED": "Neuspjelo prekidanja praćenja udruge",
+    "LOAD_FAILED": "Učitavanje udruge nije uspjelo",
+    "VIEW_PROFILE": "Pogledaj profil",
+    "CONTACT": "Kontakt"
+  },
+  "JOBS": {
+    "TITLE": "Poslovi",
+    "NO_JOBS": "Nema pronađenih poslova",
+    "ASSOCIATION": "Udruga",
+    "DATE": "Datum",
+    "LOCATION": "Lokacija",
+    "SKILLS_REQUIRED": "Potrebne vještine",
+    "PARTICIPANTS": "Zaposlenici",
+    "PENDING_APPLICATIONS": "Zahtjevi na čekanju",
+    "APPLY": "Prijavi se",
+    "ALREADY_APPLIED": "Već ste se prijavili za ovaj posao",
+    "APPLICATION_SUCCESS": "Uspješno prijavljeni za posao",
+    "APPLICATION_FAILED": "Prijavljivanje za posao nije uspjelo",
+    "NOT_AUTHENTICATED": "Morate biti prijavljeni za prijavu",
+    "VOLUNTEER_REQUIRED": "Samo volonteri se mogu prijaviti za poslove",
+    "APPROVE": "Odobri",
+    "REJECT": "Odbij",
+    "APPROVE_SUCCESS": "Zahtjev odobren",
+    "APPROVE_FAILED": "Odobravanje zahtjeva nije uspjelo",
+    "REJECT_SUCCESS": "Zahtjev odbijen",
+    "REJECT_FAILED": "Odbijanje zahtjeva nije uspjelo",
+    "VIEW": "Pogledaj posao"
   }
 }

@@ -30,12 +30,24 @@ const eventSchema = new mongoose.Schema(
         message: "Skills must be non-empty strings",
       },
     },
+    type: {
+      type: String,
+      enum: ["event", "job"],
+      required: [true, "Type is required"],
+      default: "event",
+    },
     associationId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Association",
       required: [true, "Association ID is required"],
     },
     participants: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Volunteer",
+      },
+    ],
+    pendingApplicants: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Volunteer",

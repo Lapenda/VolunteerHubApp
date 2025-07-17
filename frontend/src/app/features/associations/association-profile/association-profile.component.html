@@ -1,0 +1,63 @@
+<section *ngIf="association">
+  <h1>{{ association.name }}</h1>
+  <p>{{ "ASSOCIATIONS.CONTACT" | translate }}: {{ association.contact }}</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage | translate }}</p>
+  <p *ngIf="successMessage" class="success">{{ successMessage | translate }}</p>
+
+  <h2>{{ "EVENTS.TITLE" | translate }}</h2>
+  <div *ngIf="events.length === 0">{{ "EVENTS.NO_EVENTS" | translate }}</div>
+  <div *ngFor="let event of events" class="event-card">
+    <h3>{{ event.title }}</h3>
+    <p>{{ "EVENTS.DATE" | translate }}: {{ event.date | date }}</p>
+    <p>{{ "EVENTS.LOCATION" | translate }}: {{ event.location }}</p>
+    <p>
+      {{ "EVENTS.SKILLS_REQUIRED" | translate }}:
+      {{ event.skillsRequired.join(", ") || "None" }}
+    </p>
+  </div>
+
+  <h2>{{ "JOBS.TITLE" | translate }}</h2>
+  <div *ngIf="jobs.length === 0">{{ "JOBS.NO_JOBS" | translate }}</div>
+  <div *ngFor="let job of jobs" class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p>{{ "JOBS.DATE" | translate }}: {{ job.date | date }}</p>
+    <p>{{ "JOBS.LOCATION" | translate }}: {{ job.location }}</p>
+    <p>
+      {{ "JOBS.SKILLS_REQUIRED" | translate }}:
+      {{ job.skillsRequired.join(", ") || "None" }}
+    </p>
+    <p>
+      {{ "JOBS.PARTICIPANTS" | translate }}:
+      {{ getParticipantNames(job.participants) }}
+    </p>
+    <div
+      *ngIf="
+        userRole === 'organization' &&
+        job.pendingApplicants?.length &&
+        job.associationId?._id === loggedInUsersId
+      "
+    >
+      <h4>{{ "JOBS.PENDING_APPLICATIONS" | translate }}</h4>
+      <div *ngFor="let applicant of job.pendingApplicants" class="applicant">
+        <p>{{ applicant.userId.name }} ({{ applicant.userId.email }})</p>
+        <button
+          (click)="
+            approveOrRejectApplication(job._id, applicant._id, 'approve')
+          "
+          class="approve-button"
+        >
+          {{ "JOBS.APPROVE" | translate }}
+        </button>
+        <button
+          (click)="approveOrRejectApplication(job._id, applicant._id, 'reject')"
+          class="reject-button"
+        >
+          {{ "JOBS.REJECT" | translate }}
+        </button>
+      </div>
+    </div>
+    <button (click)="viewJob(job._id)" class="view-button">
+      {{ "JOBS.VIEW" | translate }}
+    </button>
+  </div>
+</section>

@@ -9,7 +9,8 @@ form {
   gap: 10px;
   margin-bottom: 20px;
 }
-.event-card {
+.event-card,
+.job-card {
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
@@ -39,6 +40,10 @@ button:disabled {
 }
 .unfollow-button {
   background-color: #6c757d;
+  color: white;
+}
+.view-button {
+  background-color: #17a2b8;
   color: white;
 }
 .createBtn {

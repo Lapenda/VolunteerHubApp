@@ -23,12 +23,13 @@ export class EventSearchComponent implements OnInit {
     date: new FormControl<string>(''),
   });
   events: Event[] = [];
+  jobs: Event[] = [];
   errorMessage: string | null = null;
   successMessage: string | null = null;
-  loggedInUsersId: string | null | undefined = null;
   userRole: 'volunteer' | 'organization' | null = null;
   followedAssociations: string[] = [];
-  loggedInUser: User | null = null;
+  loggedInUsersId: string | null | undefined = null; //this is an id of the volunteer or the association
+  loggedInUser: User | null = null; //this is logged in user, it has id of user which is different than logged in users id above
 
   constructor(
     private eventService: EventService,
@@ -39,6 +40,7 @@ export class EventSearchComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserData();
     this.searchEvents();
+    this.searchJobs();
   }
 
   searchEvents() {
@@ -52,6 +54,7 @@ export class EventSearchComponent implements OnInit {
       date: this.searchForm.value.date
         ? new Date(this.searchForm.value.date)
         : undefined,
+      type: 'event',
     };
     this.eventService.searchEvents(filters).subscribe({
       next: (events) => {
@@ -61,6 +64,31 @@ export class EventSearchComponent implements OnInit {
       },
       error: () => {
         this.errorMessage = 'EVENTS.SEARCH_FAILED';
+      },
+    });
+  }
+
+  searchJobs() {
+    const filters: EventSearchDto = {
+      location: this.searchForm.value.location || undefined,
+      skills:
+        this.searchForm.value.skills
+          ?.split(',')
+          .map((s) => s.trim())
+          .filter((s) => s) || undefined,
+      date: this.searchForm.value.date
+        ? new Date(this.searchForm.value.date)
+        : undefined,
+      type: 'job',
+    };
+    this.eventService.searchEvents(filters).subscribe({
+      next: (jobs) => {
+        this.jobs = jobs;
+        console.log('Jobs:', this.jobs);
+        this.errorMessage = null;
+      },
+      error: () => {
+        this.errorMessage = 'JOBS.SEARCH_FAILED';
       },
     });
   }
@@ -95,10 +123,27 @@ export class EventSearchComponent implements OnInit {
     });
   }
 
-  isUserRegistered(event: Event): boolean {
-    return this.loggedInUsersId
-      ? event.participants?.includes(this.loggedInUsersId) || false
-      : false;
+  isUserRegistered(event: Event): boolean | undefined {
+    if (!this.loggedInUsersId || !event.participants) {
+      return false;
+    }
+
+    const ids = event.participants as unknown as string[];
+    return ids.includes(this.loggedInUsersId);
+  }
+
+  isUserApplied(job: Event): boolean | undefined {
+    if (!this.loggedInUsersId || !job.participants || !job.pendingApplicants) {
+      return false;
+    }
+
+    const participantIds = job.participants as unknown as string[];
+    const pendingIds = job.pendingApplicants as unknown as string[];
+
+    return (
+      participantIds.includes(this.loggedInUsersId) ||
+      pendingIds.includes(this.loggedInUsersId)
+    );
   }
 
   editEvent(eventId: string) {
@@ -168,6 +213,54 @@ export class EventSearchComponent implements OnInit {
     });
   }
 
+  applyForJob(eventId: string) {
+    this.successMessage = null;
+    if (!eventId) {
+      console.error('Invalid job ID:', eventId);
+      this.errorMessage = 'JOBS.APPLICATION_FAILED';
+      return;
+    }
+    this.authService.getCurrentUser().subscribe({
+      next: (user) => {
+        if (!user) {
+          this.errorMessage = 'JOBS.NOT_AUTHENTICATED';
+          return;
+        }
+        if (user.userRole !== 'volunteer') {
+          this.errorMessage = 'JOBS.VOLUNTEER_REQUIRED';
+          return;
+        }
+        this.eventService.applyForJob(eventId).subscribe({
+          next: (response) => {
+            console.log('Application successful:', response.message);
+            this.errorMessage = null;
+            this.successMessage = 'JOBS.APPLICATION_SUCCESS';
+            this.searchJobs();
+          },
+          error: (error) => {
+            console.error('Application error:', error);
+            if (error.status === 400) {
+              this.errorMessage =
+                error.error.message || 'JOBS.APPLICATION_FAILED';
+            } else if (error.status === 401) {
+              this.errorMessage = 'JOBS.NOT_AUTHENTICATED';
+              this.authService.logout();
+            } else {
+              this.errorMessage = 'JOBS.APPLICATION_FAILED';
+            }
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Get current user error:', error);
+        this.errorMessage = 'JOBS.NOT_AUTHENTICATED';
+        if (error.status === 401) {
+          this.authService.logout();
+        }
+      },
+    });
+  }
+
   isFollowingAssociation(associationId: string): boolean {
     return this.followedAssociations.includes(associationId);
   }
@@ -204,5 +297,9 @@ export class EventSearchComponent implements OnInit {
 
   goToEvents() {
     this.router.navigate(['/events/create']);
+  }
+
+  goToAssociation(id: string) {
+    this.router.navigate(['/associations', id]);
   }
 }

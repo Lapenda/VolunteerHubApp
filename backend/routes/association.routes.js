@@ -14,6 +14,6 @@ associationRouter.delete(
   authorize,
   unfollowAssociation
 );
-associationRouter.get("/:associationId", authorize, getAssociation);
+associationRouter.get("/:associationId", getAssociation);
 
 export default associationRouter;

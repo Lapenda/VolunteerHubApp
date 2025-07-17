@@ -6,6 +6,8 @@ import {
   updateEvent,
   deleteEvent,
   getEventById,
+  applyForJob,
+  approveOrRejectApplication,
 } from "../controllers/event.controller.js";
 import authorize from "../middlewares/auth.middleware.js";
 
@@ -15,6 +17,12 @@ eventRouter.post("/", authorize, createEvent);
 eventRouter.get("/", searchEvents);
 eventRouter.get("/:eventId", authorize, getEventById);
 eventRouter.post("/:eventId/register", authorize, registerForEvent);
+eventRouter.post("/:eventId/apply", authorize, applyForJob);
+eventRouter.post(
+  "/:eventId/approve-reject",
+  authorize,
+  approveOrRejectApplication
+);
 eventRouter.put("/:eventId", authorize, updateEvent);
 eventRouter.delete("/:eventId", authorize, deleteEvent);
 

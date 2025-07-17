@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
   <h1>{{ "EVENTS.SEARCH_TITLE" | translate }}</h1>
   <form [formGroup]="searchForm" (ngSubmit)="searchEvents()">
     <label for="location">{{ "EVENTS.LOCATION" | translate }}</label>
@@ -93,6 +93,188 @@
         class="delete-button"
       >
         {{ "EVENTS.DELETE" | translate }}
+      </button>
+    </div>
+  </div>
+</section>
+ -->
+
+<section>
+  <h1>{{ "EVENTS.SEARCH_TITLE" | translate }}</h1>
+  <form [formGroup]="searchForm" (ngSubmit)="searchEvents(); searchJobs()">
+    <label for="location">{{ "EVENTS.LOCATION" | translate }}</label>
+    <input
+      type="text"
+      id="location"
+      formControlName="location"
+      [placeholder]="'EVENTS.LOCATION' | translate"
+    />
+
+    <label for="skills">{{ "EVENTS.SKILLS_REQUIRED" | translate }}</label>
+    <input
+      type="text"
+      id="skills"
+      formControlName="skills"
+      [placeholder]="'EVENTS.SKILLS_PLACEHOLDER' | translate"
+    />
+
+    <label for="date">{{ "EVENTS.DATE" | translate }}</label>
+    <input type="date" id="date" formControlName="date" />
+
+    <button type="submit">{{ "EVENTS.SEARCH" | translate }}</button>
+    <button
+      class="createBtn"
+      *ngIf="loggedInUser?.userRole == 'organization'"
+      type="button"
+      (click)="goToEvents()"
+    >
+      {{ "EVENTS.CREATE" | translate }}
+    </button>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage | translate }}</p>
+    <p *ngIf="successMessage" class="success">
+      {{ successMessage | translate }}
+    </p>
+  </form>
+
+  <h2>{{ "EVENTS.TITLE" | translate }}</h2>
+  <div *ngIf="events.length === 0">{{ "EVENTS.NO_EVENTS" | translate }}</div>
+  <div *ngFor="let event of events" class="event-card">
+    <h3>{{ event.title }}</h3>
+    <p>{{ "EVENTS.DATE" | translate }}: {{ event.date | date }}</p>
+    <p>{{ "EVENTS.LOCATION" | translate }}: {{ event.location }}</p>
+    <p>
+      {{ "EVENTS.SKILLS_REQUIRED" | translate }}:
+      {{ event.skillsRequired.join(", ") || "None" }}
+    </p>
+    <p>
+      {{ "EVENTS.ASSOCIATION" | translate }}:
+      {{ event.associationId?.name }} ({{ event.associationId?.contact }})
+    </p>
+    <div class="actions">
+      <button
+        *ngIf="userRole === 'volunteer'"
+        (click)="register(event._id)"
+        [disabled]="isUserRegistered(event)"
+        [title]="
+          isUserRegistered(event)
+            ? ('EVENTS.ALREADY_REGISTERED' | translate)
+            : ('EVENTS.REGISTER' | translate)
+        "
+      >
+        {{ "EVENTS.REGISTER" | translate }}
+      </button>
+      <button
+        *ngIf="userRole === 'volunteer' && event.associationId?._id"
+        (click)="toggleFollow(event.associationId!._id)"
+        [ngClass]="
+          isFollowingAssociation(event.associationId!._id)
+            ? 'unfollow-button'
+            : 'follow-button'
+        "
+      >
+        {{
+          isFollowingAssociation(event.associationId!._id)
+            ? ("ASSOCIATIONS.UNFOLLOW" | translate)
+            : ("ASSOCIATIONS.FOLLOW" | translate)
+        }}
+      </button>
+      <button
+        *ngIf="
+          userRole === 'organization' &&
+          event.associationId?._id === loggedInUsersId
+        "
+        (click)="editEvent(event._id)"
+        class="edit-button"
+      >
+        {{ "EVENTS.EDIT" | translate }}
+      </button>
+      <button
+        *ngIf="
+          userRole === 'organization' &&
+          event.associationId?._id === loggedInUsersId
+        "
+        (click)="deleteEvent(event._id)"
+        class="delete-button"
+      >
+        {{ "EVENTS.DELETE" | translate }}
+      </button>
+      <button
+        (click)="goToAssociation(event.associationId!._id)"
+        class="view-button"
+      >
+        {{ "ASSOCIATIONS.VIEW_PROFILE" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <h2>{{ "JOBS.TITLE" | translate }}</h2>
+  <div *ngIf="jobs.length === 0">{{ "JOBS.NO_JOBS" | translate }}</div>
+  <div *ngFor="let job of jobs" class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p>{{ "JOBS.DATE" | translate }}: {{ job.date | date }}</p>
+    <p>{{ "JOBS.LOCATION" | translate }}: {{ job.location }}</p>
+    <p>
+      {{ "JOBS.SKILLS_REQUIRED" | translate }}:
+      {{ job.skillsRequired.join(", ") || "None" }}
+    </p>
+    <p>
+      {{ "JOBS.ASSOCIATION" | translate }}: {{ job.associationId?.name }} ({{
+        job.associationId?.contact
+      }})
+    </p>
+    <div class="actions">
+      <button
+        *ngIf="userRole === 'volunteer'"
+        (click)="applyForJob(job._id)"
+        [disabled]="isUserApplied(job)"
+        [title]="
+          isUserApplied(job)
+            ? ('JOBS.ALREADY_APPLIED' | translate)
+            : ('JOBS.APPLY' | translate)
+        "
+      >
+        {{ "JOBS.APPLY" | translate }}
+      </button>
+      <button
+        *ngIf="userRole === 'volunteer' && job.associationId?._id"
+        (click)="toggleFollow(job.associationId!._id)"
+        [ngClass]="
+          isFollowingAssociation(job.associationId!._id)
+            ? 'unfollow-button'
+            : 'follow-button'
+        "
+      >
+        {{
+          isFollowingAssociation(job.associationId!._id)
+            ? ("ASSOCIATIONS.UNFOLLOW" | translate)
+            : ("ASSOCIATIONS.FOLLOW" | translate)
+        }}
+      </button>
+      <button
+        *ngIf="
+          userRole === 'organization' &&
+          job.associationId?._id === loggedInUsersId
+        "
+        (click)="editEvent(job._id)"
+        class="edit-button"
+      >
+        {{ "EVENTS.EDIT" | translate }}
+      </button>
+      <button
+        *ngIf="
+          userRole === 'organization' &&
+          job.associationId?._id === loggedInUsersId
+        "
+        (click)="deleteEvent(job._id)"
+        class="delete-button"
+      >
+        {{ "EVENTS.DELETE" | translate }}
+      </button>
+      <button
+        (click)="goToAssociation(job.associationId!._id)"
+        class="view-button"
+      >
+        {{ "ASSOCIATIONS.VIEW_PROFILE" | translate }}
       </button>
     </div>
   </div>

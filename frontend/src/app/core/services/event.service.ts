@@ -47,6 +47,7 @@ export class EventService {
     if (filters.location) params = params.set('location', filters.location);
     if (filters.skills) params = params.set('skills', filters.skills.join(','));
     if (filters.date) params = params.set('date', filters.date.toISOString());
+    if (filters.type) params = params.set('type', filters.type);
 
     return this.http
       .get<ApiResponse<Event[]>>(this.apiUrl, { params })
@@ -59,6 +60,26 @@ export class EventService {
     return this.http.post<{ success: boolean; message: string }>(
       `${this.apiUrl}/${eventId}/register`,
       {},
+    );
+  }
+
+  applyForJob(
+    eventId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.apiUrl}/${eventId}/apply`,
+      {},
+    );
+  }
+
+  approveOrRejectApplication(
+    eventId: string,
+    volunteerId: string,
+    action: 'approve' | 'reject',
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(
+      `${this.apiUrl}/${eventId}/approve-reject`,
+      { eventId, volunteerId, action },
     );
   }
 
