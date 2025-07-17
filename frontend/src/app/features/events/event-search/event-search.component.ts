@@ -30,6 +30,7 @@ export class EventSearchComponent implements OnInit {
   followedAssociations: string[] = [];
   loggedInUsersId: string | null | undefined = null; //this is an id of the volunteer or the association
   loggedInUser: User | null = null; //this is logged in user, it has id of user which is different than logged in users id above
+  isLoading: boolean = true;
 
   constructor(
     private eventService: EventService,
@@ -38,9 +39,10 @@ export class EventSearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadUserData();
-    this.searchEvents();
-    this.searchJobs();
+    //this.searchEvents();
+    //this.searchJobs();
   }
 
   searchEvents() {
@@ -66,6 +68,10 @@ export class EventSearchComponent implements OnInit {
         this.errorMessage = 'EVENTS.SEARCH_FAILED';
       },
     });
+
+    if (this.isLoading) {
+      this.isLoading = false;
+    }
   }
 
   searchJobs() {
@@ -91,6 +97,10 @@ export class EventSearchComponent implements OnInit {
         this.errorMessage = 'JOBS.SEARCH_FAILED';
       },
     });
+
+    if (this.isLoading) {
+      this.isLoading = false;
+    }
   }
 
   loadUserData() {
@@ -98,11 +108,11 @@ export class EventSearchComponent implements OnInit {
       next: (user) => {
         this.userRole = user ? user.userRole : null;
         this.loggedInUser = user;
+        this.followedAssociations = user?.followedOrganizations || [];
 
         if (user && user.userRole === 'volunteer') {
           this.eventService.getVolunteerId(user.id).subscribe({
             next: (volunteerId) => {
-              this.followedAssociations = user?.followedOrganizations || [];
               this.loggedInUsersId = volunteerId;
               console.log('Volunteer ID:', this.loggedInUsersId);
             },
@@ -114,11 +124,17 @@ export class EventSearchComponent implements OnInit {
         } else {
           this.loggedInUsersId = user?.association?._id;
         }
+
+        this.searchEvents();
+        this.searchJobs();
       },
       error: (error) => {
         console.error('Error getting current user:', error);
         this.loggedInUsersId = null;
         this.userRole = null;
+
+        this.searchEvents();
+        this.searchJobs();
       },
     });
   }
